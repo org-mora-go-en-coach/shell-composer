@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
   "remotes": {
-    "lesson": { "version": "1.0.0", "entry": "http://localhost:4173/1.0.0/remoteEntry.js", "apiBaseUrl": "http://localhost:3001" },
-    "user": { "version": "1.0.0", "entry": "http://localhost:4174/1.0.0/remoteEntry.js", "apiBaseUrl": "http://localhost:3002" }
+    "lesson": { "version": "1.0.0", "entry": "https://mfe-lesson-gusdn1460s-projects.vercel.app/1.0.0/remoteEntry.js", "apiBaseUrl": "https://api-lesson-gusdn1460s-projects.vercel.app" },
+    "user": { "version": "1.0.0", "entry": "https://mfe-user-gusdn1460s-projects.vercel.app/1.0.0/remoteEntry.js", "apiBaseUrl": "https://api-user-gusdn1460s-projects.vercel.app" }
   }
 }
 
