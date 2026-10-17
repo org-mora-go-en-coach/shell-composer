@@ -1,6 +1,6 @@
 # shell-composer
 
-Next.js application shell for the English Coach micro frontend system. It fetches the runtime manifest from `NEXT_PUBLIC_SHELL_CONFIG_URL`, then dynamically mounts the selected versioned ESM remote.
+Next.js application shell for the English Coach micro frontend system. It fetches the runtime manifest from the independently deployed `shell-config`, then dynamically mounts the selected versioned ESM remote.
 
 ## Local development
 
@@ -16,5 +16,5 @@ Use `npm run dev` when only the shell is needed. Set `NEXT_PUBLIC_SHELL_CONFIG_U
 
 ## Production
 
-Set `NEXT_PUBLIC_SHELL_CONFIG_URL` to the deployed `shell-config/config.json` URL in Vercel. CORS must remain enabled on the remote and API deployments.
+Production always defaults to `https://shell-config.vercel.app/config.json` and fetches it with `no-store`. `NEXT_PUBLIC_SHELL_CONFIG_URL` is an optional override. Once this shell contract is deployed, publishing a new MFE version only requires updating and deploying `shell-config`; the shell does not need to be rebuilt. CORS must remain enabled on the config, remote, and API deployments.
 
