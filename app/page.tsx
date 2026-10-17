@@ -11,21 +11,11 @@ type RemoteConfig = {
   remotes: Record<AppName, { version: string; entry: string; apiBaseUrl?: string }>;
 };
 
-const fallbackConfig: RemoteConfig = {
-  version: "1.0.0",
-  remotes: {
-    lesson: {
-      version: "1.0.0",
-      entry: "http://localhost:4173/1.0.0/remoteEntry.js",
-      apiBaseUrl: "http://localhost:3001",
-    },
-    user: {
-      version: "1.0.0",
-      entry: "http://localhost:4174/1.0.0/remoteEntry.js",
-      apiBaseUrl: "http://localhost:3002",
-    },
-  },
-};
+async function fetchConfig(url: string) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`Config request failed: ${response.status}`);
+  return response.json() as Promise<RemoteConfig>;
+}
 
 export default function Home() {
   const [active, setActive] = useState<AppName>("lesson");
@@ -35,13 +25,10 @@ export default function Home() {
 
   useEffect(() => {
     const url = process.env.NEXT_PUBLIC_SHELL_CONFIG_URL ?? "/mfe-config.json";
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) throw new Error(`Config request failed: ${response.status}`);
-        return response.json() as Promise<RemoteConfig>;
-      })
+    fetchConfig(url)
+      .catch(() => fetchConfig("/mfe-config.json"))
       .then(setConfig)
-      .catch(() => setConfig(fallbackConfig));
+      .catch(() => setStatus("Unable to load micro frontend configuration."));
   }, []);
 
   const loadRemote = useCallback(async () => {
