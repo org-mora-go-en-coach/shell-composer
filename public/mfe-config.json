@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0",
+  "remotes": {
+    "lesson": { "version": "1.0.0", "entry": "http://localhost:4173/1.0.0/remoteEntry.js", "apiBaseUrl": "http://localhost:3001" },
+    "user": { "version": "1.0.0", "entry": "http://localhost:4174/1.0.0/remoteEntry.js", "apiBaseUrl": "http://localhost:3002" }
+  }
+}
+
