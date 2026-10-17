@@ -8,7 +8,7 @@ Next.js application shell for the English Coach micro frontend system. It fetche
 npm run dev:stack
 ```
 
-Run this command from `shell-composer` after installing dependencies in all six repositories. It starts the shell on port 3000, `mfe-lesson` on 4173, `mfe-user` on 4174, `api-lesson` on 3001, and `api-user` on 3002.
+Run this command from `shell-composer` after installing dependencies in all repositories. It starts the shell on port 3000, `mfe-lesson` on 4173, `mfe-user` on 4174, `mfe-layout` on 4175, `api-lesson` on 3001, and `api-user` on 3002. The shell contains orchestration only; all visible application chrome belongs to `mfe-layout`.
 
 The development manifest imports each MFE directly from its Vite source module. Vite React Fast Refresh and HMR therefore remain active inside the Next.js shell: editing an MFE component or stylesheet updates the mounted view without restarting the stack or rebuilding a CDN bundle.
 

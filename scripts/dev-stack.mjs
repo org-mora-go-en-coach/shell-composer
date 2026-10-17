@@ -7,6 +7,7 @@ const services = [
   ["shell-composer", shellDirectory],
   ["mfe-lesson", `${workspaceDirectory}mfe-lesson`],
   ["mfe-user", `${workspaceDirectory}mfe-user`],
+  ["mfe-layout", `${workspaceDirectory}mfe-layout`],
   ["api-lesson", `${workspaceDirectory}api-lesson`],
   ["api-user", `${workspaceDirectory}api-user`],
 ];
