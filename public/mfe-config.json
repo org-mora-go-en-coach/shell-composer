@@ -2,7 +2,7 @@
   "version": "1.0.0",
   "remotes": {
     "lesson": { "version": "1.0.0", "entry": "https://mfe-lesson.vercel.app/1.0.0/remoteEntry.js", "apiBaseUrl": "https://api-lesson-six.vercel.app" },
-    "user": { "version": "1.0.0", "entry": "https://mfe-user.vercel.app/1.0.0/remoteEntry.js", "apiBaseUrl": "https://api-user-zeta.vercel.app" }
+    "user": { "version": "1.0.0", "entry": "https://mfe-user.vercel.app/1.0.0/remoteEntry.js?rev=88bb773", "apiBaseUrl": "https://api-user-zeta.vercel.app" }
   }
 }
 
