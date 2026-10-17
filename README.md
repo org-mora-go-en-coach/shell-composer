@@ -16,5 +16,5 @@ Use `npm run dev` when only the shell is needed. Set `NEXT_PUBLIC_SHELL_CONFIG_U
 
 ## Production
 
-Production always defaults to `https://shell-config.vercel.app/config.json` and fetches it with `no-store`. `NEXT_PUBLIC_SHELL_CONFIG_URL` is an optional override. Once this shell contract is deployed, publishing a new MFE version only requires updating and deploying `shell-config`; the shell does not need to be rebuilt. CORS must remain enabled on the config, remote, and API deployments.
+Production always reads `https://shell-config.vercel.app/config.json` with `no-store`; build-time environment variables cannot redirect it to a stale or protected manifest. Once this shell contract is deployed, publishing a new MFE version only requires updating and deploying `shell-config`; the shell does not need to be rebuilt. CORS must remain enabled on the config, remote, and API deployments.
 
