@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
   "remotes": {
-    "lesson": { "version": "1.0.0", "entry": "https://mfe-lesson-gusdn1460s-projects.vercel.app/1.0.0/remoteEntry.js", "apiBaseUrl": "https://api-lesson-gusdn1460s-projects.vercel.app" },
-    "user": { "version": "1.0.0", "entry": "https://mfe-user-gusdn1460s-projects.vercel.app/1.0.0/remoteEntry.js", "apiBaseUrl": "https://api-user-gusdn1460s-projects.vercel.app" }
+    "lesson": { "version": "1.0.0", "entry": "https://mfe-lesson.vercel.app/1.0.0/remoteEntry.js", "apiBaseUrl": "https://api-lesson-six.vercel.app" },
+    "user": { "version": "1.0.0", "entry": "https://mfe-user.vercel.app/1.0.0/remoteEntry.js", "apiBaseUrl": "https://api-user-zeta.vercel.app" }
   }
 }
 
