@@ -11,6 +11,31 @@ type RemoteConfig = {
   remotes: Record<AppName, { version: string; entry: string; apiBaseUrl?: string }>;
 };
 
+type RefreshWindow = Window & {
+  $RefreshReg$?: () => void;
+  $RefreshSig$?: () => (type: unknown) => unknown;
+  __vite_plugin_react_preamble_installed__?: boolean;
+};
+
+const preparedViteOrigins = new Set<string>();
+
+async function prepareViteHmr(entry: string) {
+  if (process.env.NODE_ENV !== "development") return;
+  const origin = new URL(entry).origin;
+  if (preparedViteOrigins.has(origin)) return;
+
+  const refreshRuntime = (await import(/* webpackIgnore: true */ `${origin}/@react-refresh`)) as {
+    default: { injectIntoGlobalHook: (target: Window) => void };
+  };
+  refreshRuntime.default.injectIntoGlobalHook(window);
+  const refreshWindow = window as RefreshWindow;
+  refreshWindow.$RefreshReg$ = () => undefined;
+  refreshWindow.$RefreshSig$ = () => (type) => type;
+  refreshWindow.__vite_plugin_react_preamble_installed__ = true;
+  await import(/* webpackIgnore: true */ `${origin}/@vite/client`);
+  preparedViteOrigins.add(origin);
+}
+
 async function fetchConfig(url: string) {
   const response = await fetch(url);
   if (!response.ok) throw new Error(`Config request failed: ${response.status}`);
@@ -24,14 +49,15 @@ export default function Home() {
   const hostRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const url = process.env.NEXT_PUBLIC_SHELL_CONFIG_URL ?? "/mfe-config.json";
+    const fallbackUrl = process.env.NODE_ENV === "development" ? "/mfe-config.local.json" : "/mfe-config.json";
+    const url = process.env.NEXT_PUBLIC_SHELL_CONFIG_URL ?? fallbackUrl;
     fetchConfig(url)
-      .catch(() => fetchConfig("/mfe-config.json"))
+      .catch(() => url === fallbackUrl ? Promise.reject() : fetchConfig(fallbackUrl))
       .then(setConfig)
       .catch(() => setStatus("Unable to load micro frontend configuration."));
   }, []);
 
-  const loadRemote = useCallback(async () => {
+  const loadRemote = useCallback(async (isCancelled: () => boolean) => {
     const host = hostRef.current;
     const remote = config?.remotes[active];
     if (!host || !remote) return;
@@ -40,7 +66,9 @@ export default function Home() {
     host.replaceChildren();
     let cleanup: void | (() => void);
     try {
+      await prepareViteHmr(remote.entry);
       const remoteModule = (await import(/* webpackIgnore: true */ remote.entry)) as RemoteModule;
+      if (isCancelled()) return;
       cleanup = remoteModule.mount(host, { apiBaseUrl: remote.apiBaseUrl });
       setStatus("");
     } catch (error) {
@@ -51,13 +79,17 @@ export default function Home() {
   }, [active, config]);
 
   useEffect(() => {
+    let cancelled = false;
     let dispose: void | (() => void);
     // The state updates happen asynchronously inside the remote loader.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    void loadRemote().then((cleanup) => {
+    void loadRemote(() => cancelled).then((cleanup) => {
       dispose = cleanup;
     });
-    return () => dispose?.();
+    return () => {
+      cancelled = true;
+      dispose?.();
+    };
   }, [loadRemote]);
 
   return (

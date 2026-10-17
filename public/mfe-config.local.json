@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0-local",
+  "remotes": {
+    "lesson": { "version": "dev-hmr", "entry": "http://localhost:4173/src/remote.tsx", "apiBaseUrl": "http://localhost:3001" },
+    "user": { "version": "dev-hmr", "entry": "http://localhost:4174/src/remote.tsx", "apiBaseUrl": "http://localhost:3002" }
+  }
+}

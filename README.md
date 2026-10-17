@@ -5,11 +5,14 @@ Next.js application shell for the English Coach micro frontend system. It fetche
 ## Local development
 
 ```bash
-npm install
-npm run dev
+npm run dev:stack
 ```
 
-Start `mfe-lesson` on port 4173, `mfe-user` on port 4174, `api-lesson` on port 3001, and `api-user` on port 3002. Without an environment variable, the checked-in local manifest is used.
+Run this command from `shell-composer` after installing dependencies in all six repositories. It starts the shell on port 3000, `mfe-lesson` on 4173, `mfe-user` on 4174, `api-lesson` on 3001, and `api-user` on 3002.
+
+The development manifest imports each MFE directly from its Vite source module. Vite React Fast Refresh and HMR therefore remain active inside the Next.js shell: editing an MFE component or stylesheet updates the mounted view without restarting the stack or rebuilding a CDN bundle.
+
+Use `npm run dev` when only the shell is needed. Set `NEXT_PUBLIC_SHELL_CONFIG_URL` to override the checked-in development manifest.
 
 ## Production
 
