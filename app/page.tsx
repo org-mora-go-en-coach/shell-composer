@@ -46,7 +46,7 @@ function loadRemoteStylesheet(name: "layout" | AppName, entry: string) {
     }
 
     link.addEventListener("load", () => resolve(), { once: true });
-    link.addEventListener("error", () => reject(new Error(`Unable to load ${name} styles`)), { once: true });
+    link.addEventListener("error", () => reject(new Error(`${name} 스타일을 불러올 수 없습니다.`)), { once: true });
 
     if (!existing) {
       link.id = id;
@@ -62,7 +62,7 @@ function loadRemoteStylesheet(name: "layout" | AppName, entry: string) {
 
 async function fetchConfig(url: string) {
   const response = await fetch(url, { cache: "no-store" });
-  if (!response.ok) throw new Error(`Config request failed: ${response.status}`);
+  if (!response.ok) throw new Error(`설정 요청에 실패했습니다: ${response.status}`);
   return response.json() as Promise<Config>;
 }
 
@@ -87,7 +87,7 @@ export default function Home() {
       if (cancelled) return;
 
       const load = async (app: AppName) => {
-        layout?.setStatus(`Loading ${app}…`);
+        layout?.setStatus(`${app === "lesson" ? "강의" : "사용자 정보"} 불러오는 중…`);
         const remote = config.remotes[app];
         await Promise.all([prepareViteHmr(remote.entry), loadRemoteStylesheet(app, remote.entry)]);
         const remoteModule = (await import(/* webpackIgnore: true */ remote.entry)) as { mount: (element: HTMLElement, options: { apiBaseUrl?: string }) => () => void };
@@ -104,7 +104,7 @@ export default function Home() {
     }
 
     void start().catch((error) => {
-      if (rootRef.current) rootRef.current.textContent = error instanceof Error ? error.message : "Unable to load application";
+      if (rootRef.current) rootRef.current.textContent = error instanceof Error ? error.message : "애플리케이션을 불러올 수 없습니다.";
     });
 
     return () => {
