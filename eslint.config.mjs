@@ -5,4 +5,3 @@ export default defineConfig([
   ...nextVitals,
   globalIgnores([".next/**", "next-env.d.ts"]),
 ]);
-

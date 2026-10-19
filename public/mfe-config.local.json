@@ -1,8 +1,19 @@
 {
   "version": "1.0.0-local",
   "remotes": {
-    "layout": { "version": "dev-hmr", "entry": "http://localhost:4175/src/remote.tsx" },
-    "lesson": { "version": "dev-hmr", "entry": "http://localhost:4173/src/remote.tsx", "apiBaseUrl": "http://localhost:3001" },
-    "user": { "version": "dev-hmr", "entry": "http://localhost:4174/src/remote.tsx", "apiBaseUrl": "http://localhost:3002" }
+    "layout": {
+      "version": "dev-hmr",
+      "entry": "http://localhost:4100/src/remote.tsx"
+    },
+    "lesson": {
+      "version": "dev-hmr",
+      "entry": "http://localhost:4101/src/remote.tsx",
+      "apiBaseUrl": "http://localhost:4201"
+    },
+    "user": {
+      "version": "dev-hmr",
+      "entry": "http://localhost:4102/src/remote.tsx",
+      "apiBaseUrl": "http://localhost:4202"
+    }
   }
 }

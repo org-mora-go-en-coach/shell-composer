@@ -1,0 +1,8 @@
+node_modules
+.next
+dist
+.vercel
+coverage
+playwright-report
+test-results
+*.tsbuildinfo

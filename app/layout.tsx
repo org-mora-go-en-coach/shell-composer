@@ -6,11 +6,12 @@ export const metadata: Metadata = {
   description: "영어 학습 공간",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ko">
       <body>{children}</body>
     </html>
   );
 }
-
